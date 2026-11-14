@@ -30,11 +30,14 @@ edits its own weights) or WSP on another model.
 
 ## Usage
 
+Everything runs on [Harbor](https://github.com/harbor-framework/harbor).
+
 ```
-pip install -r requirements.txt
+pip install -r requirements.txt   # plus Harbor: uv tool install harbor
 python -m wspnest list
 python -m wspnest validate
-python -m wspnest run logit-lens-4way --model Qwen/Qwen3.5-4B --adapter <path-or-hub-id> --split test
+python -m wspnest generate logit-lens-4way --out tasks_out --opt variant=agent --opt limit=100
+python -m wspnest run logit-lens-4way --opt variant=agent -- -a <agent> -m <model>
 ```
 
 ## Tasks

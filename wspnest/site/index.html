@@ -130,14 +130,18 @@ run on every family. The per-entry breakdown is always shown, alongside other vi
   <p>Adapter authors are credited as adapter contributors; the benchmark's own authors are credited as its source.</p></div>
 </div>
 <h3>Worked example: the logit-lens reading task</h3>
-<p>Our first task, from Part 1 of the series, shows both ways a task can run. Its <b>model-scoring</b> version is for
-open-weight models, including auto-WSP: the model reads 128 weights of one of its own neurons and the four candidate
-token lists are scored by log-likelihood. Its <b>Harbor</b> version turns each item into a Harbor task (instruction,
-container, verifier and reference solution), so any agent and model can attempt it. There the agent writes its answer
-to a file, with internet switched off, which makes it WSP on another model rather than auto-WSP.</p>
-<div class="tree">python3 tasks/logit-lens-4way/harbor/make_harbor_tasks.py --limit 100 --out harbor_tasks/
-harbor run -p harbor_tasks/ -a oracle               # the reference solution must pass every task
-harbor run -p harbor_tasks/ -a &lt;agent&gt; -m &lt;model&gt;</div>
+<p>Everything runs on Harbor. A task recipe writes standard Harbor tasks (instruction, container, verifier and
+reference solution), and a benchmark adapter does the same for someone else's benchmark: it is a for loop over
+task-level Harbor containers, one per upstream instance.</p>
+<p>Our first task, from Part 1 of the series, generates two variants of the same items. In the <b>agent</b> variant,
+any Harbor agent and model (API models included) reads the numbers and writes its answer, with internet switched off;
+that is WSP on another model. In the <b>scorer</b> variant, an open-weight model reads its own weights (auto-WSP): a
+WSPNest agent scores the four candidate lists by log-likelihood inside a GPU container, as in Part 1.</p>
+<div class="tree">python -m wspnest generate logit-lens-4way --out tasks_out --opt variant=agent
+harbor run -p tasks_out -a oracle          # the reference solution must pass every task
+python -m wspnest run logit-lens-4way --opt variant=agent -- -a &lt;agent&gt; -m &lt;model&gt;
+python -m wspnest run logit-lens-4way --opt variant=scorer -- \
+    --agent-import-path wspnest.agents.logprob:LogprobReader --ak model=Qwen/Qwen3.5-4B</div>
 <p>Start from the template and checklist in <a href="https://github.com/atharva-naik/auto-weight-space-programming/blob/benchmark/wspnest/CONTRIBUTING.md">CONTRIBUTING.md</a>,
 then open a pull request. Unsure whether an idea fits? Open an issue first.</p>
 

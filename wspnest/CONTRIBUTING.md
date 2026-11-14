@@ -19,25 +19,31 @@ the minor version for new items or splits, and the patch version for fixes that 
 
 ## Worked example: `tasks/logit-lens-4way`
 
-The reading task from Part 1 of the Auto Weight-Space Programming series shows both ways a task can run.
+Everything in WSPNest runs on Harbor. A task recipe is a `generate.py` that writes standard Harbor task directories
+(instruction, `task.toml`, container, verifier, reference solution). A benchmark adapter has the same shape: its
+`generate.py` fetches the upstream benchmark at a pinned commit and writes one Harbor task per upstream instance, so an
+adapter is a for loop over task-level Harbor containers.
 
-- **Model-scoring version** (`run.py`): for open-weight models, including auto-WSP, where the model reads its own
-  weights. The model is shown 128 weights of one of its own neurons and four candidate token lists. Each list is
-  scored by log-likelihood with the numbers minus log-likelihood with the numbers hidden.
-  `python -m wspnest run logit-lens-4way --model Qwen/Qwen3.5-4B --adapter <reader>`
-- **Harbor version** (`harbor/make_harbor_tasks.py`): for any agent and model Harbor supports, including API models.
-  It generates one Harbor task per item (`instruction.md`, `task.toml`, `environment/Dockerfile`, `tests/`,
-  `solution/solve.sh`). The agent writes a letter to `/app/answer.txt`, and the verifier checks it. Internet is
-  switched off, so the agent has to read the numbers rather than download the model. This version is WSP on another
-  model, not auto-WSP.
-  ```
-  python3 tasks/logit-lens-4way/harbor/make_harbor_tasks.py --model Qwen/Qwen3.5-4B --split validation --limit 100 --out harbor_tasks/
-  harbor run -p harbor_tasks/ -a oracle                  # every task must pass with the reference solution
-  harbor run -p harbor_tasks/ -a <agent> -m <model>
-  ```
+The reading task from Part 1 of the Auto Weight-Space Programming series generates two variants of the same items:
+
+- **`variant=agent`**: for any Harbor agent and model, including API models. The agent writes A-D to
+  `/app/answer.txt`. Internet is off, so it must read the numbers rather than download the model. This is WSP on
+  another model.
+- **`variant=scorer`**: for open-weight models reading their own weights (auto-WSP). The WSPNest agent
+  `wspnest.agents.logprob:LogprobReader` scores the four lists by log-likelihood inside a GPU container, as in Part 1.
+
+```
+python -m wspnest generate logit-lens-4way --out tasks_out --opt variant=agent --opt limit=100
+harbor run -p tasks_out -a oracle                                  # the reference solution must pass every task
+python -m wspnest run logit-lens-4way --opt variant=agent -- -a claude-code -m anthropic/<model>
+python -m wspnest run logit-lens-4way --opt variant=scorer -- --agent-import-path wspnest.agents.logprob:LogprobReader \
+    --ak model=Qwen/Qwen3.5-4B --ak adapter=<reader LoRA> -e modal
+```
+
+`wspnest run` generates the tasks, runs Harbor, and writes a WSPNest result file from Harbor's rewards.
 
 Things to copy from it:
 - the task card's credit and license fields;
 - the canary in every generated file;
-- an oracle solution, so the verifier can be checked;
-- a reproduction check against published numbers (see the task card's notes).
+- the oracle solution;
+- the reproduction check against published numbers (see the task card's notes).

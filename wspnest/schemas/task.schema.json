@@ -161,7 +161,7 @@
     },
     "entrypoint": {
       "type": "string",
-      "description": "python module path, relative to the task folder, with run(model, adapter, split, limit) -> dict"
+      "description": "python file, relative to the task folder, defining generate(out, **options) -> int, which writes Harbor task directories"
     },
     "notes": {
       "type": "string"
@@ -169,6 +169,10 @@
     "canary": {
       "type": "string",
       "description": "the suite's canary GUID (see CANARY); every task file and dataset card must include it"
+    },
+    "runtime": {
+      "type": "string",
+      "description": "how the task runs under Harbor (variants, agents, GPU needs)"
     }
   }
 }

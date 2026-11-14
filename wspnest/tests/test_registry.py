@@ -15,7 +15,7 @@ def test_frontier_release_pins_existing_versions():
 
 
 def test_hide_numbers():
-    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "tasks", "logit-lens-4way"))
-    import run
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "tasks", "logit-lens-4way", "scorer"))
+    import score
     p = "Intro.\n\n[0] 1 2 3\n[64] 4 5 6\n\nRead these weights."
-    assert run.hide_numbers(p) == "Intro.\n\n(numbers hidden)\n\nRead these weights."
+    assert score.hide_numbers(p) == "Intro.\n\n(numbers hidden)\n\nRead these weights."
