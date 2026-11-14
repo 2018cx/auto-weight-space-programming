@@ -45,6 +45,9 @@ def load_task(task_id):
         errs.append(f"task: id {card.get('id')!r} does not match folder {task_id!r}")
     if card.get("kind") in ("write", "localize") and not any(b.get("name", "").startswith("random") for b in card.get("baselines", [])):
         errs.append("task: write and localize tasks must report a random-edit baseline")
+    canary = open(os.path.join(ROOT, "CANARY")).read().strip()
+    if card.get("canary") != canary:
+        errs.append("task: canary must be the suite's canary GUID (see CANARY)")
     if not os.path.exists(os.path.join(TASKS, task_id, card.get("entrypoint", "run.py"))):
         errs.append("task: entrypoint file not found")
     return card, errs

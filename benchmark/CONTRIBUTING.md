@@ -11,7 +11,8 @@
    often surprisingly strong.
 6. **Reproduction check.** If the task comes from a published result, show in the PR that `run.py` reproduces it
    (or explain the difference).
-7. **Run `python -m awsp_bench validate`** and add a test in `tests/` if the task has non-trivial parsing.
+7. **Include the canary GUID** from `CANARY` in your task card (`canary:` field) and in any data files you add.
+8. **Run `python -m awsp_bench validate`** and add a test in `tests/` if the task has non-trivial parsing.
 
 New tasks start on the `frontier` track. **Versioning:** bump the major version if scores are no longer comparable,
 the minor version for new items or splits, and the patch version for fixes that keep scores comparable.
