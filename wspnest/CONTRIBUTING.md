@@ -16,3 +16,28 @@
 
 New tasks start on the `frontier` track. **Versioning:** bump the major version if scores are no longer comparable,
 the minor version for new items or splits, and the patch version for fixes that keep scores comparable.
+
+## Worked example: `tasks/logit-lens-4way`
+
+The reading task from Part 1 of the Auto Weight-Space Programming series shows both ways a task can run.
+
+- **Model-scoring version** (`run.py`): for open-weight models, including auto-WSP, where the model reads its own
+  weights. The model is shown 128 weights of one of its own neurons and four candidate token lists. Each list is
+  scored by log-likelihood with the numbers minus log-likelihood with the numbers hidden.
+  `python -m wspnest run logit-lens-4way --model Qwen/Qwen3.5-4B --adapter <reader>`
+- **Harbor version** (`harbor/make_harbor_tasks.py`): for any agent and model Harbor supports, including API models.
+  It generates one Harbor task per item (`instruction.md`, `task.toml`, `environment/Dockerfile`, `tests/`,
+  `solution/solve.sh`). The agent writes a letter to `/app/answer.txt`, and the verifier checks it. Internet is
+  switched off, so the agent has to read the numbers rather than download the model. This version is WSP on another
+  model, not auto-WSP.
+  ```
+  python3 tasks/logit-lens-4way/harbor/make_harbor_tasks.py --model Qwen/Qwen3.5-4B --split validation --limit 100 --out harbor_tasks/
+  harbor run -p harbor_tasks/ -a oracle                  # every task must pass with the reference solution
+  harbor run -p harbor_tasks/ -a <agent> -m <model>
+  ```
+
+Things to copy from it:
+- the task card's credit and license fields;
+- the canary in every generated file;
+- an oracle solution, so the verifier can be checked;
+- a reproduction check against published numbers (see the task card's notes).

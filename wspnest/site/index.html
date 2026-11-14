@@ -114,6 +114,15 @@ run on every family. The per-entry breakdown is always shown, alongside other vi
   </ul>
   <p>Adapter authors are credited as adapter contributors; the benchmark's own authors are credited as its source.</p></div>
 </div>
+<h3>Worked example: the logit-lens reading task</h3>
+<p>Our first task, from Part 1 of the series, shows both ways a task can run. Its <b>model-scoring</b> version is for
+open-weight models, including auto-WSP: the model reads 128 weights of one of its own neurons and the four candidate
+token lists are scored by log-likelihood. Its <b>Harbor</b> version turns each item into a Harbor task (instruction,
+container, verifier and reference solution), so any agent and model can attempt it. There the agent writes its answer
+to a file, with internet switched off, which makes it WSP on another model rather than auto-WSP.</p>
+<div class="tree">python3 tasks/logit-lens-4way/harbor/make_harbor_tasks.py --limit 100 --out harbor_tasks/
+harbor run -p harbor_tasks/ -a oracle               # the reference solution must pass every task
+harbor run -p harbor_tasks/ -a &lt;agent&gt; -m &lt;model&gt;</div>
 <p>Start from the template and checklist in <a href="https://github.com/atharva-naik/auto-weight-space-programming/blob/benchmark/wspnest/CONTRIBUTING.md">CONTRIBUTING.md</a>,
 then open a pull request. Unsure whether an idea fits? Open an issue first.</p>
 
