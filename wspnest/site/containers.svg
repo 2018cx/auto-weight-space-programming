@@ -32,7 +32,7 @@
 
   <!-- ===================== left: one original task ===================== -->
   <text x="56" y="58" font-size="13" font-weight="700" letter-spacing="2" fill="#b6a9ff">ORIGINAL TASK</text>
-  <text x="56" y="84" font-size="22" font-weight="700" fill="#ffffff">One task recipe, one container</text>
+  <text x="56" y="84" font-size="22" font-weight="700" fill="#ffffff">One task recipe per container</text>
 
   <g filter="url(#shadow)">
     <rect x="56" y="106" width="380" height="304" rx="20" fill="url(#card)" stroke="#7d6be0" stroke-opacity="0.5"/>
@@ -40,7 +40,7 @@
   <!-- container header -->
   <rect x="56" y="106" width="380" height="44" rx="20" fill="#5b48c2" opacity="0.55"/>
   <circle cx="82" cy="128" r="5" fill="#ff7a3d"/><circle cx="98" cy="128" r="5" fill="#ffbe55"/><circle cx="114" cy="128" r="5" fill="#6fe3a0"/>
-  <text x="134" y="133" font-size="13" fill="#e9e4ff">container · logit-lens-4way</text>
+  <text x="134" y="133" font-size="13" fill="#e9e4ff">logit-lens-4way container</text>
 
   <!-- four parts of a task -->
   <g font-size="13.5" fill="#f2efff">
@@ -67,7 +67,7 @@
 
   <!-- ===================== right: one benchmark adapter ===================== -->
   <text x="512" y="58" font-size="13" font-weight="700" letter-spacing="2" fill="#ffb9dc">BENCHMARK ADAPTER</text>
-  <text x="512" y="84" font-size="22" font-weight="700" fill="#ffffff">A whole benchmark, one container per instance</text>
+  <text x="512" y="84" font-size="22" font-weight="700" fill="#ffffff">One container per benchmark instance</text>
 
   <!-- upstream -->
   <g filter="url(#shadow)"><rect x="512" y="106" width="250" height="78" rx="18" fill="url(#cardDark)" stroke="#e45d99" stroke-opacity="0.6"/></g>
@@ -83,8 +83,8 @@
   <g filter="url(#shadow)"><rect x="512" y="218" width="250" height="78" rx="18" fill="url(#card)" stroke="#7d6be0" stroke-opacity="0.6"/></g>
   <rect x="530" y="236" width="40" height="40" rx="10" fill="url(#orange)"/>
   <path d="M542 256 h16 M550 248 v16" stroke="#2c1f66" stroke-width="3" stroke-linecap="round"/>
-  <text x="584" y="252" font-size="14.5" font-weight="600" fill="#ffffff">Adapter (thin wrapper)</text>
-  <text x="584" y="272" font-size="12" fill="#e3d6ff">fetch · run their eval · convert</text>
+  <text x="584" y="252" font-size="14.5" font-weight="600" fill="#ffffff">Adapter</text>
+  <text x="584" y="272" font-size="12" fill="#e3d6ff">fetches, runs their eval, converts</text>
 
   <!-- fan-out to instance containers -->
   <g fill="none" stroke="#ffb24a" stroke-width="2" stroke-opacity="0.9">
@@ -116,8 +116,8 @@
     <rect x="712" y="456" width="300" height="64" rx="16" fill="url(#cardDark)" stroke="#8f7ef0" stroke-opacity="0.5"/>
   </g>
   <g font-size="13.5" fill="#f2efff">
-    <text x="118" y="484" font-weight="600">standard result file</text><text x="118" y="503" font-size="12" fill="#b9b1e8">versions · answers · score</text>
-    <text x="734" y="484" font-weight="600">standard result file</text><text x="734" y="503" font-size="12" fill="#b9b1e8">their score, our format</text>
+    <text x="118" y="484" font-weight="600">standard result file</text><text x="118" y="503" font-size="12" fill="#b9b1e8">versions, answers and score</text>
+    <text x="734" y="484" font-weight="600">standard result file</text><text x="734" y="503" font-size="12" fill="#b9b1e8">their scores, in our format</text>
   </g>
   <path d="M246 412 V450" stroke="#ffb24a" stroke-width="2.5" marker-end="url(#arrow)"/>
   <path d="M1062 342 C 1090 342, 1090 488, 1016 488" fill="none" stroke="#ffb24a" stroke-width="2" marker-end="url(#arrow)"/>
@@ -128,8 +128,8 @@
     <rect x="468" y="566" width="12" height="36" rx="3" fill="url(#orange)"/>
   </g>
   <text x="496" y="571" font-size="15" font-weight="700" fill="#ffffff">WSPNest release</text>
-  <text x="496" y="591" font-size="12" fill="#e3d6ff">per-entry scores · capability view</text>
-  <text x="496" y="607" font-size="12" fill="#e3d6ff">cite what you ran</text>
+  <text x="496" y="591" font-size="12" fill="#e3d6ff">per-entry and capability scores</text>
+  <text x="496" y="607" font-size="12" fill="#e3d6ff">citations for what you ran</text>
   <path d="M246 522 C 246 578, 330 578, 404 578" fill="none" stroke="#ffb24a" stroke-width="2" marker-end="url(#arrow)"/>
   <path d="M862 522 C 862 578, 790 578, 716 578" fill="none" stroke="#ffb24a" stroke-width="2" marker-end="url(#arrow)"/>
 </svg>

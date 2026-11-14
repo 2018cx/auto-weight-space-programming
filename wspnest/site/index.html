@@ -44,6 +44,7 @@ td{color:var(--ink2)}
 code{font-family:'Google Sans Code',ui-monospace,Menlo,monospace;background:#1c1a3a;border-radius:4px;padding:1px 5px;font-size:.9em;color:#e6e2ff}
 figure.diagram{margin:1.6rem 0}figure.diagram img{width:100%;display:block;border-radius:22px}
 figure.diagram figcaption{font:.88rem 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:var(--muted);margin-top:.5rem}
+ol.refs{font:.85rem/1.5 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:var(--ink2);padding-left:1.4rem}ol.refs li{margin:.3rem 0}
 footer{border-top:1px solid var(--rule);margin-top:4rem;padding-top:1.2rem;font:.85rem 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:var(--muted)}
 </style>
 </head>
@@ -185,26 +186,29 @@ adapter version. Every result records the versions it was produced with.</p>
 </ul></div>
 <p class="note">The BibTeX entry for WSPNest will be published with the first release.</p>
 
-<h2 id="inspiration">What we borrowed, and from whom</h2>
-<p>Almost every part of this design comes from earlier benchmarks. What is new is mostly the combination, adapted to a
-field whose evaluations are scattered across many small projects.</p>
+<h2 id="inspiration">Inspiration for framework design</h2>
+<p>WSPNest stands on the shoulders of a lot of existing benchmarks. Almost every part of its design is borrowed from
+somewhere, and we want to be upfront about where. What is new is mostly how the pieces fit together, for a field whose
+evals are scattered across many small projects.</p>
 <table>
 <tbody><tr><th>Idea</th><th>Inspired by</th></tr>
-<tr><td>One leaderboard over many datasets, while asking users to cite each dataset</td><td>GLUE, SuperGLUE</td></tr>
-<tr><td>Tasks contributed by pull request, with contributors as authors</td><td>BIG-bench; Terminal-Bench</td></tr>
-<tr><td>Task authors ordered by the number of accepted tasks</td><td>Terminal-Bench 3.0</td></tr>
-<tr><td>Each task in its own container; a registry of adapted benchmarks, validated with parity experiments</td><td>Terminal-Bench and its Dataset Registry; Harbor</td></tr>
-<tr><td>Benchmarks maintained like software: semantic versioning of tasks, re-using, re-grading or re-running results</td><td>Terminal-Bench's Continuous Benchmarks</td></tr>
-<tr><td>Problems added continuously</td><td>LiveBench, LiveCodeBench</td></tr>
-<tr><td>Averaging within task categories, then across them; named task lists over a growing pool</td><td>MTEB</td></tr>
-<tr><td>Several views instead of one canonical number</td><td>HELM</td></tr>
-<tr><td>A canary string in every task file, so benchmark data can be filtered out of training corpora</td><td>BIG-bench; Terminal-Bench</td></tr>
-<tr><td>Frozen, curated subsets of a larger set</td><td>SWE-bench (Lite, Verified)</td></tr>
-<tr><td>One harness that runs many benchmarks</td><td>lm-evaluation-harness; Inspect and Inspect Evals</td></tr>
+<tr><td>One leaderboard over many datasets, while asking users to cite each dataset</td><td>GLUE [1], SuperGLUE [2]</td></tr>
+<tr><td>Tasks contributed by pull request, with contributors as authors</td><td>BIG-bench [3]; Terminal-Bench [4]</td></tr>
+<tr><td>Task authors ordered by the number of accepted tasks</td><td>Terminal-Bench 3.0 [5]</td></tr>
+<tr><td>Each task in its own container; a registry of adapted benchmarks, validated with parity experiments</td><td>Terminal-Bench and its Dataset Registry [4, 6]; Harbor [7]</td></tr>
+<tr><td>Benchmarks maintained like software: semantic versioning of tasks, re-using, re-grading or re-running results</td><td>Terminal-Bench's Continuous Benchmarks [8, 9]</td></tr>
+<tr><td>Problems added continuously</td><td>LiveBench [10], LiveCodeBench [11]</td></tr>
+<tr><td>Averaging within task categories, then across them; named task lists over a growing pool</td><td>MTEB [12]</td></tr>
+<tr><td>Several views instead of one canonical number</td><td>HELM [13]</td></tr>
+<tr><td>A canary string in every task file, so benchmark data can be filtered out of training corpora</td><td>BIG-bench [3]; Terminal-Bench [4]</td></tr>
+<tr><td>Frozen, curated subsets of a larger set</td><td>SWE-bench (Lite, Verified) [14]</td></tr>
+<tr><td>One harness that runs many benchmarks</td><td>lm-evaluation-harness [15]; Inspect and Inspect Evals [16]</td></tr>
 </tbody></table>
-<p>Our own additions, all of them building on the above: entries that can be whole benchmarks; a citation rule that
-the tool itself applies; adapters that need the authors' opt-in and can be withdrawn; and aggregation by capability
-for very uneven entries.</p>
+<p>The few things we added ourselves, all of which build on the above: an entry can be a whole benchmark, the tool
+itself applies the citation rules, adapters are opt-in and revocable for benchmark authors, and scores are aggregated by
+capability so that very uneven entries can be combined fairly.</p>
+<h3>References</h3>
+<ol class="refs"><li>GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding. Wang et al., 2018. <a href='https://arxiv.org/abs/1804.07461'>arxiv.org/abs/1804.07461</a></li><li>SuperGLUE: A Stickier Benchmark for General-Purpose Language Understanding Systems. Wang et al., 2019. <a href='https://arxiv.org/abs/1905.00537'>arxiv.org/abs/1905.00537</a></li><li>Beyond the Imitation Game: Quantifying and extrapolating the capabilities of language models (BIG-bench). Srivastava et al., 2022. <a href='https://arxiv.org/abs/2206.04615'>arxiv.org/abs/2206.04615</a></li><li>Terminal-Bench: Benchmarking Agents on Hard, Realistic Tasks in Command Line Interfaces. Merrill et al., 2026. <a href='https://arxiv.org/abs/2601.11868'>arxiv.org/abs/2601.11868</a></li><li>Terminal-Bench 3.0 Call for Contributions. Terminal-Bench blog, 2026. <a href='https://www.tbench.ai/news/tb3-contribution-call'>www.tbench.ai/news/tb3-contribution-call</a></li><li>The Terminal-Bench Dataset Registry. Terminal-Bench blog, 2025. <a href='https://www.tbench.ai/news/registry-and-adapters'>www.tbench.ai/news/registry-and-adapters</a></li><li>Harbor: a framework for evaluating and improving agents. <a href='https://github.com/harbor-framework/harbor'>github.com/harbor-framework/harbor</a></li><li>Continuous Benchmarks. Terminal-Bench blog, 2026. <a href='https://www.tbench.ai/news/continuous-benchmarks'>www.tbench.ai/news/continuous-benchmarks</a></li><li>Benchmarks as Software: Terminal-Bench and the Case for Continuous Benchmarks. Buchanan et al., 2026. <a href='https://arxiv.org/abs/2611.08417'>arxiv.org/abs/2611.08417</a></li><li>LiveBench: A Challenging, Contamination-Limited LLM Benchmark. White et al., 2024. <a href='https://arxiv.org/abs/2406.19314'>arxiv.org/abs/2406.19314</a></li><li>LiveCodeBench: Holistic and Contamination Free Evaluation of Large Language Models for Code. Jain et al., 2024. <a href='https://arxiv.org/abs/2403.07974'>arxiv.org/abs/2403.07974</a></li><li>MTEB: Massive Text Embedding Benchmark. Muennighoff et al., 2022. <a href='https://arxiv.org/abs/2210.07316'>arxiv.org/abs/2210.07316</a></li><li>Holistic Evaluation of Language Models (HELM). Liang et al., 2022. <a href='https://arxiv.org/abs/2211.09110'>arxiv.org/abs/2211.09110</a></li><li>SWE-bench: Can Language Models Resolve Real-World GitHub Issues? Jimenez et al., 2023. <a href='https://arxiv.org/abs/2310.06770'>arxiv.org/abs/2310.06770</a></li><li>Lessons from the Trenches on Reproducible Evaluation of Language Models (lm-evaluation-harness). Biderman et al., 2024. <a href='https://arxiv.org/abs/2405.14782'>arxiv.org/abs/2405.14782</a></li><li>Inspect and Inspect Evals. UK AI Security Institute. <a href='https://github.com/UKGovernmentBEIS/inspect_evals'>github.com/UKGovernmentBEIS/inspect_evals</a></li></ol>
 
 <h2 id="people">People and authorship</h2>
 <h3>Authorship rule</h3>
