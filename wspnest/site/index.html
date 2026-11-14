@@ -52,22 +52,33 @@ footer{border-top:1px solid var(--rule);margin-top:4rem;padding-top:1.2rem;font:
 <main>
 
 <section class="hero">
-  <div class="kicker">A livE benchmark for weight-space programming</div>
+  <div class="kicker">A live benchmark for weight-space programming</div>
   <h1><img src="logo.svg" alt="WSPNest logo" style="height:64px;vertical-align:-12px;margin-right:10px">WSPNest</h1>
-  <p class="lede" spellcheck="false">Unified framework to run every weight-space programming (WSP) evaluation: our original tasks, plus adapters for existing WSP benchmarks (if authors consent and are allowed by licensing), also called nested benchmarks, with fair credit and citation rules.</p>
-  <p class="quote"><br></p>
-  <p class="note">WSPNest is part of the <a href="https://atharva-naik.github.io/blog/awsp/">Auto Weight-Space Programming</a> blog series and results and analysis of the first release will be shared in the second blog.</p>
+  <p class="lede">A unified framework for running weight-space programming (WSP) evaluations: our original tasks, plus adapters for existing WSP benchmarks (nested benchmarks), included with their authors' consent and within their licenses, and with fair rules for credit and citation.</p>
+  <p class="note">WSPNest is part of the <a href="https://atharva-naik.github.io/blog/awsp/">Auto Weight-Space Programming</a> blog series. Results and analysis of the first release will appear in Part 2.</p>
   <div class="btns"><a class="primary" href="#contribute">Contribute a task</a><a class="secondary" href="https://github.com/atharva-naik/auto-weight-space-programming/tree/benchmark/wspnest">GitHub</a><a class="secondary" href="https://atharva-naik.github.io/blog/awsp/">Blog series</a></div>
 </section>
 
-<h2 spellcheck="false">Why</h2>
-<p spellcheck="false">Weight-space programming means reading what a model's weights do, or writing weights that make it behave a certain
-way, directly from raw numbers. Since the first blog appeared &lt;cite Takehi&gt;, new WSP evaluations have been posted almost daily,
-each with custom setup and metrics. Compiling a comprehensive report of evals across all of them is cumbersome.</p>
-<p spellcheck="false">We wanted a unified, convenient framework with reliable recipes for all the existing benchmarks and with stable, documented procedures for adding new benchmarks. We DO NOT REDISTRIBUTE any benchmarks but just provide recipes to download and evaluate on these benchmarks. Moreover, we wanted a way to standardize and containerize novel task ideas while allowing for open contributions by the research community. As past contributors to terminal bench, we believe in the philosophy of treating benchmarks like actively maintained software with support, but with WSP being such a new area, the ability to be live and absorb new tasks was necessary. This allows for the hardness of the tasks to keep up as models inevitably become stronger at WSP. Moreover, it is important that original benchmark creators as well as novel task contributors for WSPNest get credited and cited appropriately, and we don't citation farm off the hard work of the original benchmark creators (this means both not stealing their citations and getting free citations just because someone used our framework but didn't use our novel tasks). We have concrete, fair rules regarding citations that all users must comply with to be consistent with our license. Finally, the open source community is free to build on top of our work as long as the novel task contributors are credited appropriately.</p>
+<h2>Why</h2>
+<p>Weight-space programming means reading what a model's weights do, or writing weights that make it behave a certain
+way, directly from the raw numbers. Since the first blog post on it (<a href="https://rikiyat.github.io/blog/weight-space-programming/">Takehi et al., 2026</a>),
+new WSP evaluations have been posted almost daily, each with its own setup and metrics, so compiling a comprehensive
+report across all of them is cumbersome.</p>
+<p>We wanted one convenient framework, with reliable recipes for the existing benchmarks and stable, documented
+procedures for adding new ones. <b>We do not redistribute any benchmark</b>: we only provide recipes that download and
+evaluate it. We also wanted a standard, containerized way to add new task ideas, open to contributions from the research
+community.</p>
+<p>As past contributors to Terminal-Bench, we share its view that benchmarks should be treated like actively maintained
+software. WSP is such a new area that the suite also has to be live, absorbing new tasks so that their difficulty keeps
+up as models inevitably get better at WSP.</p>
+<p>Finally, original benchmark creators and WSPNest task contributors should both be credited and cited properly, and
+we should not farm citations off other people's work: we neither take the original creators' citations nor collect a
+free citation when someone uses the framework without our original tasks. Our citation rules are concrete and, we
+hope, fair, and we ask everyone who uses WSPNest to follow them. Anyone is free to build on our work, as long as the
+task contributors are credited.</p>
 
 <h2 id="how">How it works</h2>
-<p spellcheck="false">Every entry in WSPNest is either a <b>task</b> or a&nbsp;<b>benchmark adapter recipe (nested benchmark)</b>, and a benchmark is itself a collection of
+<p>Every entry in WSPNest is either a <b>task</b> or a <b>benchmark adapter</b> (a nested benchmark), and a benchmark is itself a collection of
 entries. The suite is a tree: tasks are the leaves.</p>
 <div class="tree">WSPNest release 2026.12
 ├── logit-lens-4way              task recipe     (original)
