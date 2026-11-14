@@ -52,26 +52,22 @@ footer{border-top:1px solid var(--rule);margin-top:4rem;padding-top:1.2rem;font:
 <main>
 
 <section class="hero">
-  <div class="kicker">A living benchmark for weight-space programming</div>
+  <div class="kicker">A livE benchmark for weight-space programming</div>
   <h1><img src="logo.svg" alt="WSPNest logo" style="height:64px;vertical-align:-12px;margin-right:10px">WSPNest</h1>
-  <p class="lede">One framework to run every weight-space programming (WSP) evaluation: our original tasks, plus
-  opt-in adapters that run existing WSP benchmarks exactly as their authors wrote them, with credit and citation rules
-  built in.</p>
-  <p class="quote">As models keep growing stronger, benchmarks should also keep growing harder.</p>
-  <p class="note">WSPNest is part of the <a href="https://atharva-naik.github.io/blog/awsp/">Auto Weight-Space Programming</a> blog series, which motivates it and reports our own experiments.</p>
+  <p class="lede" spellcheck="false">Unified framework to run every weight-space programming (WSP) evaluation: our original tasks, plus adapters for existing WSP benchmarks (if authors consent and are allowed by licensing), also called nested benchmarks, with fair credit and citation rules.</p>
+  <p class="quote"><br></p>
+  <p class="note">WSPNest is part of the <a href="https://atharva-naik.github.io/blog/awsp/">Auto Weight-Space Programming</a> blog series and results and analysis of the first release will be shared in the second blog.</p>
   <div class="btns"><a class="primary" href="#contribute">Contribute a task</a><a class="secondary" href="https://github.com/atharva-naik/auto-weight-space-programming/tree/benchmark/wspnest">GitHub</a><a class="secondary" href="https://atharva-naik.github.io/blog/awsp/">Blog series</a></div>
 </section>
 
-<h2>Why</h2>
-<p>Weight-space programming means reading what a model's weights do, or writing weights that make it behave a certain
-way, directly from the numbers. Since the first results appeared, new WSP evaluations have been posted almost daily,
-each with its own repository, setup and metric. Comparing models across them means cloning and learning every one.</p>
-<p>We want one place where all of them can be run the same way, where original work keeps its credit and citations,
-and where the collection keeps growing as models get stronger. Benchmarks, like software, should be maintained rather
-than frozen once and left to saturate.</p>
+<h2 spellcheck="false">Why</h2>
+<p spellcheck="false">Weight-space programming means reading what a model's weights do, or writing weights that make it behave a certain
+way, directly from raw numbers. Since the first blog appeared &lt;cite Takehi&gt;, new WSP evaluations have been posted almost daily,
+each with custom setup and metrics. Compiling a comprehensive report of evals across all of them is cumbersome.</p>
+<p spellcheck="false">We wanted a unified, convenient framework with reliable recipes for all the existing benchmarks and with stable, documented procedures for adding new benchmarks. We DO NOT REDISTRIBUTE any benchmarks but just provide recipes to download and evaluate on these benchmarks. Moreover, we wanted a way to standardize and containerize novel task ideas while allowing for open contributions by the research community. As past contributors to terminal bench, we believe in the philosophy of treating benchmarks like actively maintained software with support, but with WSP being such a new area, the ability to be live and absorb new tasks was necessary. This allows for the hardness of the tasks to keep up as models inevitably become stronger at WSP. Moreover, it is important that original benchmark creators as well as novel task contributors for WSPNest get credited and cited appropriately, and we don't citation farm off the hard work of the original benchmark creators (this means both not stealing their citations and getting free citations just because someone used our framework but didn't use our novel tasks). We have concrete, fair rules regarding citations that all users must comply with to be consistent with our license. Finally, the open source community is free to build on top of our work as long as the novel task contributors are credited appropriately.</p>
 
 <h2 id="how">How it works</h2>
-<p>Every entry in WSPNest is either a <b>task</b> or a whole <b>benchmark</b>, and a benchmark is itself a collection of
+<p spellcheck="false">Every entry in WSPNest is either a <b>task</b> or a&nbsp;<b>benchmark adapter recipe (nested benchmark)</b>, and a benchmark is itself a collection of
 entries. The suite is a tree: tasks are the leaves.</p>
 <div class="tree">WSPNest release 2026.12
 ├── logit-lens-4way              task recipe     (original)
@@ -178,7 +174,7 @@ adapter version. Every result records the versions it was produced with.</p>
 <p>Almost every part of this design comes from earlier benchmarks. What is new is mostly the combination, adapted to a
 field whose evaluations are scattered across many small projects.</p>
 <table>
-<tr><th>Idea</th><th>Inspired by</th></tr>
+<tbody><tr><th>Idea</th><th>Inspired by</th></tr>
 <tr><td>One leaderboard over many datasets, while asking users to cite each dataset</td><td>GLUE, SuperGLUE</td></tr>
 <tr><td>Tasks contributed by pull request, with contributors as authors</td><td>BIG-bench; Terminal-Bench</td></tr>
 <tr><td>Task authors ordered by the number of accepted tasks</td><td>Terminal-Bench 3.0</td></tr>
@@ -190,7 +186,7 @@ field whose evaluations are scattered across many small projects.</p>
 <tr><td>A canary string in every task file, so benchmark data can be filtered out of training corpora</td><td>BIG-bench; Terminal-Bench</td></tr>
 <tr><td>Frozen, curated subsets of a larger set</td><td>SWE-bench (Lite, Verified)</td></tr>
 <tr><td>One harness that runs many benchmarks</td><td>lm-evaluation-harness; Inspect and Inspect Evals</td></tr>
-</table>
+</tbody></table>
 <p>Our own additions, all of them building on the above: entries that can be whole benchmarks; a citation rule that
 the tool itself applies; adapters that need the authors' opt-in and can be withdrawn; and aggregation by capability
 for very uneven entries.</p>
