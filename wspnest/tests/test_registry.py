@@ -1,6 +1,6 @@
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from awsp_bench.registry import all_tasks, load_task, load_release
+from wspnest.registry import all_tasks, load_task, load_release
 
 
 def test_all_tasks_valid():

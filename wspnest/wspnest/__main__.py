@@ -1,4 +1,4 @@
-"""python -m awsp_bench list | validate | run <task> --model M [--adapter A] [--split S] [--limit N]"""
+"""python -m wspnest list | validate | run <task> --model M [--adapter A] [--split S] [--limit N]"""
 import argparse
 import datetime
 import importlib.util
@@ -63,7 +63,7 @@ def cmd_run(a):
 
 
 def main():
-    ap = argparse.ArgumentParser(prog="awsp_bench")
+    ap = argparse.ArgumentParser(prog="wspnest")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("list").set_defaults(f=cmd_list)
     sub.add_parser("validate").set_defaults(f=cmd_validate)

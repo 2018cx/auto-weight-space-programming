@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "AWSP-Bench task card",
+  "title": "WSPNest task card",
   "type": "object",
   "required": [
     "id",

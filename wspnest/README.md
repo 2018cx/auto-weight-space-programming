@@ -1,9 +1,9 @@
-# AWSP-Bench: a living benchmark for weight-space programming
+# WSPNest: a living benchmark for weight-space programming
 
 > As models keep growing stronger, benchmarks should also keep growing harder.
 
 Weight-space programming (WSP) means reading what a model's weights do, or writing weights that make it behave a
-certain way, directly from the numbers. New WSP results keep appearing, each with its own setup and metric. AWSP-Bench
+certain way, directly from the numbers. New WSP results keep appearing, each with its own setup and metric. WSPNest
 collects them into one suite that keeps growing: anyone can add a task by pull request, and the suite is frozen into
 named releases so that scores stay comparable.
 
@@ -32,9 +32,9 @@ edits its own weights) or WSP on another model.
 
 ```
 pip install -r requirements.txt
-python -m awsp_bench list
-python -m awsp_bench validate
-python -m awsp_bench run logit-lens-4way --model Qwen/Qwen3.5-4B --adapter <path-or-hub-id> --split test
+python -m wspnest list
+python -m wspnest validate
+python -m wspnest run logit-lens-4way --model Qwen/Qwen3.5-4B --adapter <path-or-hub-id> --split test
 ```
 
 ## Tasks
@@ -55,5 +55,5 @@ filter out any document containing it when building training data. Adapters keep
 
 ## Citation
 
-AWSP-Bench is cited separately from the blog series; see [CITATION.cff](CITATION.cff). Please also cite the original
+WSPNest is cited separately from the blog series; see [CITATION.cff](CITATION.cff). Please also cite the original
 work behind each task you use (its `credit.citation` field).

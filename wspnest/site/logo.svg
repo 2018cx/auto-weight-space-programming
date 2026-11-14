@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80" role="img" aria-label="WSPNest logo: a bird sitting in a nest">
+  <!-- bird -->
+  <ellipse cx="62" cy="34" rx="20" ry="15" fill="#2a78d6"/>
+  <circle cx="76" cy="22" r="10" fill="#2a78d6"/>
+  <circle cx="79" cy="20" r="2.4" fill="#fff"/><circle cx="79.6" cy="20" r="1.2" fill="#0b0b0b"/>
+  <path d="M86 23 L95 25.5 L86 28 Z" fill="#e8a33a"/>
+  <path d="M46 30 Q36 24 32 32 Q42 35 47 36 Z" fill="#1d5aa5"/>
+  <!-- nest: woven arcs -->
+  <path d="M18 44 Q60 74 102 44 L98 52 Q60 82 22 52 Z" fill="#a8763e"/>
+  <path d="M20 47 Q60 70 100 47" fill="none" stroke="#7a5229" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M24 53 Q60 76 96 53" fill="none" stroke="#7a5229" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M30 58 Q60 78 90 58" fill="none" stroke="#c9975e" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

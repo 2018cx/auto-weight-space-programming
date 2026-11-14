@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "WSPNest: A Living Benchmark for Weight-Space Programming"
+message: "If you use WSPNest, please cite it, and also cite the original work behind each task you use (see each task's credit.citation)."
+type: software
+authors:
+  - family-names: Naik
+    given-names: Atharva
+  - name: "WSPNest contributors"
+repository-code: "https://github.com/atharva-naik/auto-weight-space-programming/tree/benchmark/wspnest"
+license: MIT
+version: 0.1.0
+date-released: 2026-11-14
