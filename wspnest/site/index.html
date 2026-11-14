@@ -5,45 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WSPNest: a living benchmark for weight-space programming</title>
 <meta name="description" content="One framework to run every weight-space programming evaluation: original tasks plus opt-in adapters for existing benchmarks, with credit and citation rules built in. Call for contributions.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Google+Sans+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#ecebf7;--ink2:#c3c0dc;--muted:#9a96b8;--rule:#2c2a4d;--bg:#0f0e1f;--accent:#a596ff;--card:#17162e;--orange:#ffb24a}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(1200px 600px at 15% -10%,#2a1f63 0%,rgba(42,31,99,0) 60%),radial-gradient(900px 500px at 100% 10%,#3b1a4f 0%,rgba(59,26,79,0) 55%),var(--bg);background-attachment:fixed;color:var(--ink);font:17px/1.65 Georgia,'Times New Roman',serif}
+body{margin:0;background:radial-gradient(1200px 600px at 15% -10%,#2a1f63 0%,rgba(42,31,99,0) 60%),radial-gradient(900px 500px at 100% 10%,#3b1a4f 0%,rgba(59,26,79,0) 55%),var(--bg);background-attachment:fixed;color:var(--ink);font:17px/1.65 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif}
 a{color:var(--accent)}a:hover{color:#c9c0ff}
 nav{position:sticky;top:0;background:rgba(15,14,31,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);z-index:5}
-nav .in{max-width:980px;margin:0 auto;padding:10px 22px;display:flex;gap:18px;align-items:center;font:600 .82rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}
+nav .in{max-width:980px;margin:0 auto;padding:10px 22px;display:flex;gap:18px;align-items:center;font:600 .82rem 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}
 nav .brand{margin-right:auto;color:var(--ink);text-decoration:none;letter-spacing:.06em}
 nav a{color:var(--ink2);text-decoration:none}nav a:hover{color:var(--orange)}
 main{max-width:980px;margin:0 auto;padding:0 22px 90px}
 .hero{padding:64px 0 34px;border-bottom:1px solid var(--rule)}
-.kicker{font:600 .8rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#b6a9ff}
-h1{font:700 2.6rem/1.15 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:.4rem 0 .6rem;color:#fff}
+.kicker{font:600 .8rem 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#b6a9ff}
+h1{font:700 2.6rem/1.15 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:.4rem 0 .6rem;color:#fff}
 .lede{font-size:1.2rem;color:var(--ink2);max-width:760px;margin:0 0 1.4rem}
 .quote{font-style:italic;color:var(--ink2);border-left:3px solid var(--orange);padding-left:14px;margin:0 0 1.2rem}
-.btns a{display:inline-block;font:600 .9rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;padding:9px 16px;border-radius:8px;margin:0 8px 8px 0;text-decoration:none;border:1px solid #4b4680}
+.btns a{display:inline-block;font:600 .9rem 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;padding:9px 16px;border-radius:8px;margin:0 8px 8px 0;text-decoration:none;border:1px solid #4b4680}
 .btns a.primary{background:linear-gradient(90deg,#ffbe55,#ff7a3d);color:#1a1240;border-color:transparent}
 .btns a.secondary{color:var(--ink);background:rgba(255,255,255,.04)}
 .btns a:hover{filter:brightness(1.08)}
-.status{display:inline-block;font:600 .78rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;background:rgba(255,178,74,.12);border:1px solid rgba(255,178,74,.45);color:#ffcf8a;border-radius:12px;padding:2px 10px;margin-bottom:12px}
-h2{font:700 1.5rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:3rem 0 .8rem;padding-top:.6rem;color:#fff}
-h3{font:600 1.08rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:1.4rem 0 .4rem;color:#fff}
+.status{display:inline-block;font:600 .78rem 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;background:rgba(255,178,74,.12);border:1px solid rgba(255,178,74,.45);color:#ffcf8a;border-radius:12px;padding:2px 10px;margin-bottom:12px}
+h2{font:700 1.5rem 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:3rem 0 .8rem;padding-top:.6rem;color:#fff}
+h3{font:600 1.08rem 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:1.4rem 0 .4rem;color:#fff}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:1rem 0}
 .card{background:linear-gradient(160deg,rgba(75,58,160,.28),rgba(23,22,46,.9));border:1px solid #34306a;border-radius:14px;padding:18px 20px;box-shadow:0 10px 30px rgba(5,3,20,.35)}
 .card h3{margin-top:0}
 .card p,.card li{font-size:.97rem;color:var(--ink2)}
 ul{padding-left:1.2rem}li{margin:.25rem 0}
-table{border-collapse:collapse;width:100%;font:.9rem/1.45 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:.8rem 0}
+table{border-collapse:collapse;width:100%;font:.9rem/1.45 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:.8rem 0}
 th,td{border-bottom:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
 th{color:#fff;font-weight:600;background:#1c1a3a}
 td{color:var(--ink2)}
-.tree{font:.9rem/1.5 ui-monospace,Menlo,monospace;background:#12112a;border:1px solid var(--rule);border-radius:10px;padding:14px 18px;white-space:pre;overflow-x:auto;color:#d9d5f5}
+.tree{font:.9rem/1.5 'Google Sans Code',ui-monospace,Menlo,monospace;background:#12112a;border:1px solid var(--rule);border-radius:10px;padding:14px 18px;white-space:pre;overflow-x:auto;color:#d9d5f5}
 .decision{background:var(--card);border:1px solid #34306a;border-radius:14px;padding:6px 20px}
 .decision li{margin:.5rem 0}
-.note{font:.88rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:var(--muted)}
-code{background:#1c1a3a;border-radius:4px;padding:1px 5px;font-size:.9em;color:#e6e2ff}
+.note{font:.88rem 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:var(--muted)}
+code{font-family:'Google Sans Code',ui-monospace,Menlo,monospace;background:#1c1a3a;border-radius:4px;padding:1px 5px;font-size:.9em;color:#e6e2ff}
 figure.diagram{margin:1.6rem 0}figure.diagram img{width:100%;display:block;border-radius:22px}
-figure.diagram figcaption{font:.88rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:var(--muted);margin-top:.5rem}
-footer{border-top:1px solid var(--rule);margin-top:4rem;padding-top:1.2rem;font:.85rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:var(--muted)}
+figure.diagram figcaption{font:.88rem 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:var(--muted);margin-top:.5rem}
+footer{border-top:1px solid var(--rule);margin-top:4rem;padding-top:1.2rem;font:.85rem 'Google Sans',-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -51,7 +52,6 @@ footer{border-top:1px solid var(--rule);margin-top:4rem;padding-top:1.2rem;font:
 <main>
 
 <section class="hero">
-  <div class="status">Call for contributions · first release date to be announced</div>
   <div class="kicker">A living benchmark for weight-space programming</div>
   <h1><img src="logo.svg" alt="WSPNest logo" style="height:64px;vertical-align:-12px;margin-right:10px">WSPNest</h1>
   <p class="lede">One framework to run every weight-space programming (WSP) evaluation: our original tasks, plus
@@ -90,7 +90,8 @@ entries. The suite is a tree: tasks are the leaves.</p>
   code, and converts the results into one standard format. Nothing is redistributed.</p></div>
   <div class="card"><h3>Releases and tracks</h3><p>New entries join a <b>frontier</b> track and show results right away.
   At each frozen, versioned release they move to the <b>core</b> after calibration. Saturated or broken entries are
-  <b>retired</b> and kept for history. Combined scores exist per release only.</p></div>
+  <b>retired</b> and kept for history. Combined scores exist per release only. Contributions are always open; the
+  first frozen release comes about a month after launch.</p></div>
 </div>
 <h3>Combining scores across very different entries</h3>
 <p>A one-task benchmark should not count as much as a benchmark with ten task families, and a benchmark that
