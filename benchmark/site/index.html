@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WSPNest (working name): a living benchmark for weight-space programming</title>
+<meta name="description" content="One framework to run every weight-space programming evaluation: original tasks plus opt-in adapters for existing benchmarks, with credit and citation rules built in. Call for contributions.">
+<style>
+:root{--ink:#0b0b0b;--ink2:#52514e;--muted:#6c6a65;--rule:#e1e0d9;--bg:#fcfcfb;--accent:#2a78d6;--card:#ffffff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Georgia,'Times New Roman',serif}
+a{color:var(--accent)}
+nav{position:sticky;top:0;background:rgba(252,252,251,.96);border-bottom:1px solid var(--rule);z-index:5}
+nav .in{max-width:980px;margin:0 auto;padding:10px 22px;display:flex;gap:18px;align-items:center;font:600 .82rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}
+nav .brand{margin-right:auto;color:var(--ink);text-decoration:none;letter-spacing:.06em}
+nav a{color:var(--ink2);text-decoration:none}nav a:hover{color:var(--accent)}
+main{max-width:980px;margin:0 auto;padding:0 22px 90px}
+.hero{padding:64px 0 34px;border-bottom:1px solid var(--rule)}
+.kicker{font:600 .8rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:700 2.6rem/1.15 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:.4rem 0 .6rem}
+.lede{font-size:1.2rem;color:var(--ink2);max-width:760px;margin:0 0 1.4rem}
+.quote{font-style:italic;color:var(--ink2);border-left:3px solid var(--rule);padding-left:14px;margin:0 0 1.6rem}
+.btns a{display:inline-block;font:600 .9rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;padding:9px 16px;border-radius:6px;margin:0 8px 8px 0;text-decoration:none;border:1px solid var(--ink)}
+.btns a.primary{background:var(--ink);color:#fff}.btns a.secondary{color:var(--ink)}
+.status{display:inline-block;font:600 .78rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;background:#fff6e0;border:1px solid #e8c766;color:#6b5200;border-radius:12px;padding:2px 10px;margin-bottom:12px}
+h2{font:700 1.5rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:3rem 0 .8rem;padding-top:.6rem}
+h3{font:600 1.08rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:1.4rem 0 .4rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:1rem 0}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:18px 20px}
+.card h3{margin-top:0}
+.card p,.card li{font-size:.97rem;color:var(--ink2)}
+ul{padding-left:1.2rem}li{margin:.25rem 0}
+table{border-collapse:collapse;width:100%;font:.9rem/1.45 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:.8rem 0}
+th,td{border-bottom:1px solid var(--rule);padding:7px 10px;text-align:left;vertical-align:top}
+th{color:var(--ink2);font-weight:600;background:#f6f5f1}
+.tree{font:.9rem/1.5 ui-monospace,Menlo,monospace;background:#f4f3ee;border:1px solid var(--rule);border-radius:8px;padding:14px 18px;white-space:pre;overflow-x:auto}
+.decision{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:6px 20px}
+.decision li{margin:.5rem 0}
+.note{font:.88rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:var(--muted)}
+footer{border-top:1px solid var(--rule);margin-top:4rem;padding-top:1.2rem;font:.85rem -apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:var(--muted)}
+</style>
+</head>
+<body>
+<nav><div class="in"><a class="brand" href="#">WSPNest</a><a href="#how">How it works</a><a href="#contribute">Contribute</a><a href="#policies">Policies</a><a href="#cite">Citing</a><a href="#inspiration">Inspiration</a><a href="#people">People</a></div></nav>
+<main>
+
+<section class="hero">
+  <div class="status">Call for contributions · working name · first release date to be announced</div>
+  <div class="kicker">A living benchmark for weight-space programming</div>
+  <h1>WSPNest</h1>
+  <p class="lede">One framework to run every weight-space programming (WSP) evaluation: our original tasks, plus
+  opt-in adapters that run existing WSP benchmarks exactly as their authors wrote them, with credit and citation rules
+  built in.</p>
+  <p class="quote">As models keep growing stronger, benchmarks should also keep growing harder.</p>
+  <div class="btns"><a class="primary" href="#contribute">Contribute a task</a><a class="secondary" href="https://github.com/atharva-naik/auto-weight-space-programming/tree/benchmark/benchmark">GitHub</a><a class="secondary" href="https://atharva-naik.github.io/blog/awsp/">Blog series</a></div>
+</section>
+
+<h2>Why</h2>
+<p>Weight-space programming means reading what a model's weights do, or writing weights that make it behave a certain
+way, directly from the numbers. Since the first results appeared, new WSP evaluations have been posted almost daily,
+each with its own repository, setup and metric. Comparing models across them means cloning and learning every one.</p>
+<p>We want one place where all of them can be run the same way, where original work keeps its credit and citations,
+and where the collection keeps growing as models get stronger. Benchmarks, like software, should be maintained rather
+than frozen once and left to saturate.</p>
+
+<h2 id="how">How it works</h2>
+<p>Every entry in WSPNest is either a <b>task</b> or a whole <b>benchmark</b>, and a benchmark is itself a collection of
+entries. The suite is a tree: tasks are the leaves.</p>
+<div class="tree">WSPNest release 2026.12
+├── logit-lens-4way              task recipe     (original)
+├── your-original-task           task recipe     (original)
+└── some-external-benchmark      benchmark adapter (opt-in, pinned to an upstream commit)
+    ├── instance 1               run in its own container
+    ├── instance 2
+    └── …</div>
+<div class="grid">
+  <div class="card"><h3>Task recipe</h3><p>A container, an entrypoint and a scorer for one task, with a task card that
+  records its version, kind (read, write or localize), whether it is auto-WSP (the model reads or edits its own
+  weights), baselines, license and credit.</p></div>
+  <div class="card"><h3>Benchmark adapter</h3><p>A thin wrapper around an existing benchmark. At run time it fetches the
+  upstream benchmark at a pinned commit, runs each of its instances in its own container with the upstream evaluation
+  code, and converts the results into one standard format. Nothing is redistributed.</p></div>
+  <div class="card"><h3>Releases and tracks</h3><p>New entries join a <b>frontier</b> track and show results right away.
+  At each frozen, versioned release they move to the <b>core</b> after calibration. Saturated or broken entries are
+  <b>retired</b> and kept for history. Combined scores exist per release only.</p></div>
+</div>
+<h3>Combining scores across very different entries</h3>
+<p>A one-task benchmark should not count as much as a benchmark with ten task families, and a benchmark that
+contributes many near-identical tasks should not dominate. So each leaf is normalized (chance = 0, best known = 1) and
+tagged with a capability family. Scores are averaged within families, pooling every source that tests the same
+capability, then within kinds (read, write, localize), then across kinds. A model gets a combined score only if it was
+run on every family. The per-entry breakdown is always shown, alongside other views (by benchmark, auto-WSP only).</p>
+
+<h2 id="contribute">Two ways to contribute</h2>
+<div class="grid">
+  <div class="card"><h3>1. An original task</h3>
+  <p>A new WSP task, written as a task recipe. To be merged it must:</p>
+  <ul>
+    <li>come with a filled-in task card and a working entrypoint that returns per-item answers;</li>
+    <li>report baselines, including <b>random edits</b> for write and localize tasks;</li>
+    <li>be checked by a reviewer for a correct grader and a reproduction of any published number it builds on;</li>
+    <li>respect the license of anything it uses, and credit any work it is inspired by.</li>
+  </ul>
+  <p><b>Every merged original task earns its author authorship</b> (see <a href="#people">People</a>).</p></div>
+  <div class="card"><h3>2. A benchmark adapter</h3>
+  <p>Bring an existing WSP benchmark into the framework without copying it. To be merged it must:</p>
+  <ul>
+    <li>have the benchmark authors' consent (see <a href="#policies">Policies</a>);</li>
+    <li>pin the upstream commit or dataset revision;</li>
+    <li>pass a <b>parity check</b>: reproduce the benchmark's own published numbers for at least one model, within a
+    stated tolerance;</li>
+    <li>carry the benchmark's citation.</li>
+  </ul>
+  <p>Adapter authors are credited as adapter contributors; the benchmark's own authors are credited as its source.</p></div>
+</div>
+<p>Start from the template and checklist in <a href="https://github.com/atharva-naik/auto-weight-space-programming/blob/benchmark/benchmark/CONTRIBUTING.md">CONTRIBUTING.md</a>,
+then open a pull request. Unsure whether an idea fits? Open an issue first.</p>
+
+<h2 id="policies">Policies</h2>
+<h3>Adapters need the authors' consent, and consent can be withdrawn</h3>
+<ul>
+  <li>We contact the benchmark's maintainers before an adapter is merged, and include it only if they opt in. The
+  adapter card records who agreed, when, and a link to their reply.</li>
+  <li>Consent comes in two parts: whether the benchmark can be <b>run</b> through WSPNest, and whether it can be
+  <b>counted</b> in combined release scores.</li>
+  <li>Authors can withdraw at any time, with no reason needed. The adapter is removed from the live registry and from
+  all future releases. Past published scores stay in history, marked as withdrawn, unless the authors prefer them
+  removed too.</li>
+  <li>Tasks that closely reimplement a specific benchmark get the same courtesy: we tell its authors and rework or
+  remove the task if they object.</li>
+</ul>
+<h3>What we support</h3>
+<ul>
+  <li><b>Original tasks</b> are maintained, versioned and kept stable across releases.</li>
+  <li><b>Adapters</b> are best effort. They are pinned to an upstream version, and if an upstream change breaks one, it
+  is marked broken until someone fixes it. An adapter is not an endorsement, and not a support promise on behalf of
+  the original authors.</li>
+</ul>
+<h3>Versioning</h3>
+<p>Tasks follow semantic versioning: a patch keeps scores comparable, a minor change (for example to the grader)
+means re-scoring saved answers, and a major change means re-running models. Moving an adapter's upstream pin is a new
+adapter version. Every result records the versions it was produced with.</p>
+
+<h2 id="cite">Citing</h2>
+<p>We do not want to collect citations for work that others did. The rule is a short decision tree, and
+<code>wspnest cite results/</code> prints exactly what a set of results owes.</p>
+<div class="decision"><ul>
+  <li><b>You ran only adapted benchmarks:</b> cite each of those benchmarks. Citing WSPNest is optional; a mention
+  such as "evaluated with WSPNest" is enough.</li>
+  <li><b>You used any of our original tasks:</b> cite WSPNest (its author list includes every merged task author),
+  plus each adapted benchmark you used.</li>
+  <li><b>You reported a WSPNest release score:</b> cite WSPNest and every benchmark included in that release.</li>
+</ul></div>
+<p class="note">The BibTeX entry for WSPNest will be published with the first release.</p>
+
+<h2 id="inspiration">What we borrowed, and from whom</h2>
+<p>Almost every part of this design comes from earlier benchmarks. What is new is mostly the combination, adapted to a
+field whose evaluations are scattered across many small projects.</p>
+<table>
+<tr><th>Idea</th><th>Inspired by</th></tr>
+<tr><td>One leaderboard over many datasets, while asking users to cite each dataset</td><td>GLUE, SuperGLUE</td></tr>
+<tr><td>Tasks contributed by pull request, with contributors as authors</td><td>BIG-bench; Terminal-Bench</td></tr>
+<tr><td>Task authors ordered by the number of accepted tasks</td><td>Terminal-Bench 3.0</td></tr>
+<tr><td>Each task in its own container; a registry of adapted benchmarks, validated with parity experiments</td><td>Terminal-Bench and its Dataset Registry; Harbor</td></tr>
+<tr><td>Benchmarks maintained like software: semantic versioning of tasks, re-using, re-grading or re-running results</td><td>Terminal-Bench's Continuous Benchmarks</td></tr>
+<tr><td>Problems added continuously; contamination-aware evaluation</td><td>LiveBench, LiveCodeBench</td></tr>
+<tr><td>Averaging within task categories, then across them; named task lists over a growing pool</td><td>MTEB</td></tr>
+<tr><td>Several views instead of one canonical number</td><td>HELM</td></tr>
+<tr><td>Frozen, curated subsets of a larger set</td><td>SWE-bench (Lite, Verified)</td></tr>
+<tr><td>One harness that runs many benchmarks</td><td>lm-evaluation-harness; Inspect and Inspect Evals</td></tr>
+</table>
+<p>Our own additions, all of them building on the above: entries that can be whole benchmarks; a citation rule that
+the tool itself applies; adapters that need the authors' opt-in and can be withdrawn; and aggregation by capability
+for very uneven entries.</p>
+
+<h2 id="people">People and authorship</h2>
+<h3>Authorship rule</h3>
+<p>Anyone who contributes <b>at least one original task</b> that meets the bar and is merged becomes an author of
+WSPNest. Following Terminal-Bench 3.0, task authors (individuals or organizations) are ordered by the number of
+accepted tasks, with ties broken alphabetically. The maintainers are listed first. Authors of benchmarks we adapt are
+credited and cited as the source of those benchmarks, and are not added as authors unless they contribute.</p>
+<h3>Maintainers</h3>
+<p>Atharva Naik, Emmy Liu, Varun Gangal, and other team members.</p>
+<h3>Task authors</h3>
+<p class="note">None yet. Yours could be the first.</p>
+
+<footer>WSPNest is a working name. Part of the <a href="https://atharva-naik.github.io/blog/awsp/">Auto Weight-Space
+Programming</a> series. Questions or ideas: open an issue on <a href="https://github.com/atharva-naik/auto-weight-space-programming/issues">GitHub</a>.</footer>
+</main>
+</body>
+</html>
