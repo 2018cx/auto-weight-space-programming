@@ -12,7 +12,7 @@ PAGE = os.path.join(HERE, "index.html")
 PORT = int(os.environ.get("PORT", "8011"))
 
 TOOLBAR = """
-<div id="edbar" style="position:fixed;bottom:16px;right:16px;z-index:99;background:#fff;border:1px solid #c9c8c2;
+<div id="edbar" style="position:fixed;bottom:16px;right:16px;z-index:99;color:#1a1240;background:#fff;border:1px solid #c9c8c2;
  border-radius:8px;padding:8px 12px;font:13px -apple-system,Segoe UI,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.08)">
  <b>Editing</b> · click any text to change it · <span id="edst">loaded</span>
  <button id="edsave" style="margin-left:8px">Save (Cmd+S)</button></div>
