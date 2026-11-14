@@ -1,0 +1,29 @@
+# Copy this folder to tasks/<your-task-id>/ and fill in every field. See CONTRIBUTING.md.
+id: your-task-id
+version: 0.1.0
+title: One-line title
+kind: read            # read | write | localize
+auto: false           # true if the model reads or edits its OWN weights (auto-WSP)
+track: frontier       # new tasks start on the frontier track
+summary: >
+  What the model is given, what it must produce, and how the answer is checked.
+models: [Qwen/Qwen3.5-4B]
+credit:
+  source: https://link-to-the-original-work
+  authors: [Original Author]
+  citation: "Author (Year). Title. Venue or URL."
+  adapted_by: [Your Name]
+license:
+  data: CC-BY-4.0     # license of the data the task uses
+  code: MIT
+  redistributed: false  # false if run.py downloads from the original source rather than copying it here
+data:
+  location: hf://datasets/owner/name   # or a URL; never re-upload data whose license does not allow it
+  splits: {test: 1000}
+metric:
+  name: accuracy
+  chance: 0.25
+  description: How a single answer is scored, and how scores are aggregated.
+baselines:            # at least one; write and localize tasks must include random edits
+  - {name: random, score: 0.25}
+entrypoint: run.py

@@ -1,0 +1,7 @@
+# The frontier track: tasks that are in the registry but not yet part of a frozen release.
+# Per-task results are shown as soon as a task is merged; tasks join the aggregate at the next release,
+# after calibration (baselines including random edits, a saturation check, and a check of the grader).
+name: frontier
+frozen: false
+tasks:
+  - {id: logit-lens-4way, version: 1.0.0}

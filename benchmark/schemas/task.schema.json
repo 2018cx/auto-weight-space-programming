@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AWSP-Bench task card",
+  "type": "object",
+  "required": ["id", "version", "title", "kind", "auto", "track", "summary", "credit", "license", "data", "metric", "baselines", "entrypoint"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$", "description": "major: scores not comparable; minor: new items or splits; patch: fixes that keep scores comparable"},
+    "title": {"type": "string"},
+    "kind": {"enum": ["read", "write", "localize"]},
+    "auto": {"type": "boolean", "description": "true if the model reads or edits its own weights (auto-WSP)"},
+    "track": {"enum": ["frontier", "core", "retired"]},
+    "summary": {"type": "string"},
+    "models": {"type": "array", "items": {"type": "string"}, "description": "target models the task is defined on"},
+    "credit": {
+      "type": "object", "required": ["source", "authors", "citation"],
+      "properties": {"source": {"type": "string"}, "authors": {"type": "array", "items": {"type": "string"}},
+                     "citation": {"type": "string"}, "adapted_by": {"type": "array", "items": {"type": "string"}}}
+    },
+    "license": {
+      "type": "object", "required": ["data", "redistributed"],
+      "properties": {"data": {"type": "string"}, "code": {"type": "string"},
+                     "redistributed": {"type": "boolean", "description": "false: the task fetches data from the original source instead of copying it"}}
+    },
+    "data": {"type": "object", "required": ["location"], "properties": {"location": {"type": "string"}, "splits": {"type": "object"}}},
+    "metric": {"type": "object", "required": ["name", "chance"], "properties": {"name": {"type": "string"}, "chance": {"type": "number"}, "description": {"type": "string"}}},
+    "baselines": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["name"], "properties": {"name": {"type": "string"}, "score": {"type": "number"}, "source": {"type": "string"}}}},
+    "entrypoint": {"type": "string", "description": "python module path, relative to the task folder, with run(model, adapter, split, limit) -> dict"},
+    "notes": {"type": "string"}
+  }
+}

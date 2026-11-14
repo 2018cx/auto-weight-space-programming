@@ -1,0 +1,5 @@
+pyyaml
+torch
+transformers>=5.7
+peft
+huggingface_hub

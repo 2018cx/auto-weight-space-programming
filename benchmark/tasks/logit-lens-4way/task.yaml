@@ -1,0 +1,39 @@
+id: logit-lens-4way
+version: 1.0.0
+title: Read the logit lens of your own neuron (four-way)
+kind: read
+auto: true
+track: frontier
+summary: >
+  The model is shown 128 coordinates of one of its own MLP neurons' output direction (a column of
+  mlp.down_proj, integers scaled so that 20 is one standard deviation of the full column) and four candidate
+  token lists: what the slice promotes and suppresses through the logit lens, for the true neuron and three
+  other neurons of the same layer. Each candidate is scored by its log-likelihood after the prompt minus its
+  log-likelihood with the number lines replaced by "(numbers hidden)"; the highest score is the model's answer.
+models: [Qwen/Qwen3.5-0.8B, Qwen/Qwen3.5-2B, Qwen/Qwen3.5-4B, Qwen/Qwen3.5-9B, meta-llama/Llama-3.2-3B-Instruct]
+credit:
+  source: https://atharva-naik.github.io/blog/awsp-part-1/
+  authors: [Atharva Naik, Emmy Liu, Varun Gangal]
+  citation: "Naik, Liu and Gangal (2026). Auto Weight-Space Programming. Blog series. https://atharva-naik.github.io/blog/awsp/"
+license:
+  data: "Apache-2.0 (Qwen3.5 configs); Llama 3.2 Community License (Llama config)"
+  code: MIT
+  redistributed: false
+data:
+  location: hf://datasets/atharva-naik-1/awsp-neuron-reading
+  splits: {validation: 400, test: 1000, test_hard: 1000, test_layer: 1000}
+metric:
+  name: accuracy
+  chance: 0.25
+  description: Share of items where the true list has the highest score. "test_hard" uses the three most similar slices of the layer as distractors; "test_layer" uses four layers never trained on.
+baselines:
+  - {name: untrained Qwen3.5-4B (numbers hidden), score: 0.269, source: "Part 1, Finding 2.1"}
+  - {name: Part 1 reader (Qwen3.5-4B + rank-32 LoRA), score: 0.998, source: "Part 1, Finding 1.1"}
+entrypoint: run.py
+notes: >
+  Reproduction check (2026-11-14, Qwen3.5-0.8B reader, 2 test items, fp32 on CPU): 7 of 8 candidate scores match
+  the Part 1 evaluation files within 0.25 nats; one distractor's score differs by about 67 nats in both conditions,
+  which points to a difference in that candidate's label text and is being investigated before this task enters a
+  release. Near-ties can also flip between fp32 and bf16.
+  The model reads ITS OWN weights: each config of the dataset is defined for one model, and scoring a
+  different model on it is a cross-model read, not this task.
