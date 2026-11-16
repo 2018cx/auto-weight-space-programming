@@ -1,4 +1,5 @@
-"""python -m wspnest list | validate | generate <task> --out DIR [--opt k=v] | run <task> [--opt k=v] -- <harbor run args>"""
+"""python -m wspnest list | validate | generate <task> --out DIR [--opt k=v] | train-data <task> --out DIR [--opt k=v]
+                    | run <task> [--opt k=v] [--saw-train] -- <harbor run args>"""
 import argparse
 import datetime
 import importlib.util
@@ -43,11 +44,11 @@ def _commit():
         return ""
 
 
-def _load_generator(card, task_id):
+def _load_generator(card, task_id, fn="generate"):
     spec = importlib.util.spec_from_file_location(f"task_{task_id}", os.path.join(TASKS, task_id, card["entrypoint"]))
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    return mod.generate
+    return getattr(mod, fn)
 
 
 def _options(pairs):
@@ -67,6 +68,17 @@ def cmd_generate(a):
     return card, n
 
 
+def cmd_train_data(a):
+    """Write a task's training data (its train version). Only gym-like tasks have one; it never overlaps the test version."""
+    card, errs = load_task(a.task)
+    if errs:
+        sys.exit("\n".join(errs))
+    if "train" not in card:
+        sys.exit(f"{a.task} has only a test version: no training data exists for it")
+    n = _load_generator(card, a.task, card["train"]["entrypoint"])(a.out, **_options(a.opt))
+    print(f"wrote {n} training examples to {a.out} (disjoint from test: {card['train']['disjoint_from_test']})")
+
+
 def cmd_run(a):
     """Generate the Harbor tasks, run them with Harbor, and write a WSPNest result manifest from the rewards."""
     card, n = cmd_generate(a)
@@ -76,19 +88,25 @@ def cmd_run(a):
     print("running:", " ".join(cmd))
     subprocess.run(cmd, check=False)
     new = sorted(set(os.listdir(jobs)) - before) if os.path.isdir(jobs) else []
-    rewards = {}
+    rewards, groups = {}, {}
     for job in new:
         for root, _, files in os.walk(os.path.join(jobs, job)):
             if "reward.txt" in files:
                 try:
-                    rewards[os.path.relpath(root, jobs)] = float(open(os.path.join(root, "reward.txt")).read().strip())
+                    r = rewards[os.path.relpath(root, jobs)] = float(open(os.path.join(root, "reward.txt")).read().strip())
                 except ValueError:
-                    pass
+                    continue
+                if "details.json" in files:  # tasks may split items into subsets (e.g. wsp-gym: faulty vs healthy)
+                    d = json.load(open(os.path.join(root, "details.json")))
+                    if "clean" in d:
+                        groups.setdefault("clean" if d["clean"] else "faulty", []).append(r)
     score = sum(rewards.values()) / len(rewards) if rewards else None
+    subsets = {k: sum(v) / len(v) for k, v in sorted(groups.items())}
     manifest = {"task": card["id"], "task_version": card["version"], "harness_version": __version__,
                 "harness_commit": _commit(), "options": _options(a.opt), "harbor_args": a.harbor_args,
                 "harbor_jobs": new, "n_tasks": n, "n_scored": len(rewards), "metric": card["metric"]["name"],
-                "score": score, "date": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")}
+                "score": score, "subsets": subsets,
+                "train_version_seen": a.saw_train, "date": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")}
     os.makedirs(a.results, exist_ok=True)
     path = os.path.join(a.results, f"{card['id']}__{'_'.join(new) or 'nojob'}.json")
     json.dump({**manifest, "per_trial": rewards}, open(path, "w"), indent=1)
@@ -105,10 +123,16 @@ def main():
     g.add_argument("--out", required=True)
     g.add_argument("--opt", action="append", help="generator option, e.g. --opt model=Qwen/Qwen3.5-4B --opt variant=agent")
     g.set_defaults(f=cmd_generate)
+    t = sub.add_parser("train-data", help="write a task's training data, if it has a train version")
+    t.add_argument("task")
+    t.add_argument("--out", required=True)
+    t.add_argument("--opt", action="append")
+    t.set_defaults(f=cmd_train_data)
     r = sub.add_parser("run", help="generate, run with Harbor, and record a result manifest; pass Harbor args after --")
     r.add_argument("task")
     r.add_argument("--out", default=os.path.join(ROOT, ".harbor_tasks"))
     r.add_argument("--opt", action="append")
+    r.add_argument("--saw-train", action="store_true", help="the model was trained on this task's train version (reported separately)")
     r.add_argument("--jobs-dir", default=os.path.join(ROOT, "jobs"))
     r.add_argument("--results", default=os.path.join(ROOT, "results"))
     r.add_argument("harbor_args", nargs=argparse.REMAINDER)

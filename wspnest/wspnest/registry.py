@@ -50,6 +50,16 @@ def load_task(task_id):
         errs.append("task: canary must be the suite's canary GUID (see CANARY)")
     if not os.path.exists(os.path.join(TASKS, task_id, card.get("entrypoint", "run.py"))):
         errs.append("task: entrypoint file not found")
+    if card.get("test", {}).get("frozen") is not True:
+        errs.append("task: the test version must be frozen (test.frozen: true)")
+    ad = card.get("adapter")
+    if ad:
+        if not ad.get("consent", {}).get("revocable"):
+            errs.append("task: adapters need the upstream authors' revocable, opt-in consent (adapter.consent)")
+        if not ad.get("parity", {}).get("match"):
+            errs.append("task: adapters must pass a parity check against upstream's published numbers (adapter.parity)")
+        elif not os.path.exists(os.path.join(TASKS, task_id, ad["parity"]["file"])):
+            errs.append("task: adapter parity file not found")
     return card, errs
 
 
