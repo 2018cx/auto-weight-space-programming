@@ -1,11 +1,12 @@
-# WSPNest: a living benchmark for weight-space programming
+# WSPNest: an open eval framework for weight-space programming
 
 > As models keep growing stronger, benchmarks should also keep growing harder.
 
 Weight-space programming (WSP) means reading what a model's weights do, or writing weights that make it behave a
 certain way, directly from the numbers. New WSP results keep appearing, each with its own setup and metric. WSPNest
-collects them into one suite that keeps growing: anyone can add a task by pull request, and the suite is frozen into
-named releases so that scores stay comparable.
+runs them in one framework: our own tasks plus adapters for existing benchmarks (with their authors' consent).
+Anyone can add a task by pull request, and the collection is frozen into named releases so that scores stay
+comparable.
 
 **Status: early scaffold (v0.1).** One task so far; the first frozen release is planned with Part 2 of the
 [Auto Weight-Space Programming](https://atharva-naik.github.io/blog/awsp/) series.
