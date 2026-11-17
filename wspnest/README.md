@@ -1,4 +1,4 @@
-# WSPNest: an open eval framework for weight-space programming
+# WSPNest: a live eval framework for weight-space programming
 
 > As models keep growing stronger, benchmarks should also keep growing harder.
 
