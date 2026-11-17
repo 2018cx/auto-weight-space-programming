@@ -52,7 +52,7 @@ python -m wspnest run logit-lens-4way --opt variant=agent -- -a <agent> -m <mode
 
 ## Contributing a task
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Every task credits its original authors on its task card, in this table and
+See [CONTRIBUTING.md](CONTRIBUTING.md), and discuss task ideas on the [WSPNest Discord](https://discord.gg/fzTwQeq6g). Every task credits its original authors on its task card, in this table and
 on the leaderboard, and anyone using a task is asked to cite the original work as well as the suite.
 
 ## Canary

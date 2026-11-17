@@ -1,5 +1,7 @@
 # Contributing a task
 
+New to WSPNest? Bring task ideas and questions to the [WSPNest Discord](https://discord.gg/fzTwQeq6g) before opening a PR.
+
 1. **Ask the original authors first** if the task is built on someone else's work, and link their reply in the PR.
    Credit them in `credit.authors`; list yourself in `credit.adapted_by`.
 2. **Check the license.** If the data or code license does not allow copying, do not copy it: set
