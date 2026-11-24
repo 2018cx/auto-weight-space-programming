@@ -47,10 +47,12 @@ def main():
     p.add_argument("directory", type=Path)
     p.add_argument("--method", choices=("ridge", "anchored", "zero", "random", "direct", "smoothed"), default="ridge")
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--out", type=Path)
     a = p.parse_args()
     with np.load(a.directory / "actor.npz", allow_pickle=False) as actor, np.load(a.directory / "calibration.npz", allow_pickle=False) as data:
         w, b = patch(actor, data["history"].astype(float).reshape(-1, 64), data["target"].astype(float), a.method, a.seed)
-    (a.directory / "patch.json").write_text(json.dumps({"weight": w.tolist(), "bias": b.tolist()}, allow_nan=False), encoding="utf-8")
+    out = a.out or a.directory / "patch.json"
+    out.write_text(json.dumps({"weight": w.tolist(), "bias": b.tolist()}, allow_nan=False), encoding="utf-8")
 
 
 if __name__ == "__main__":
